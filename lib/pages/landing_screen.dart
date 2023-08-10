@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:multiplepage/pages/home_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multiplepage/widgets/gradient_container.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
 
   void navigateToOnboarding(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
-      ),
-    );
+    // Using navigator
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const HomeScreen(),
+    //   ),
+    // );
+
+    // using goRoute
+    context.go('/login');
   }
 
   @override
@@ -34,9 +38,6 @@ class LandingScreen extends StatelessWidget {
                       width: 300,
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 20,
                 ),
               ],
             ),
@@ -71,7 +72,7 @@ class LandingScreen extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  child: const Text("Roll Dice"),
+                  child: const Text("Continue"),
                 ),
               ),
             )

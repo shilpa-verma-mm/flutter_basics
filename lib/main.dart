@@ -1,9 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:multiplepage/pages/home_screen.dart';
 import 'package:multiplepage/pages/landing_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:multiplepage/pages/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (
+        BuildContext context,
+        GoRouterState state,
+      ) {
+        return const LandingScreen();
+      },
+      routes: [
+        GoRoute(
+          path: "login",
+          builder: (context, state) => const LoginScreen(),
+        )
+      ],
+    ),
+    GoRoute(
+      name: "home",
+      path: '/home:id/:name',
+      builder: (
+        BuildContext context,
+        GoRouterState state,
+      ) {
+        return HomeScreen(
+          id: state.pathParameters["id"]!,
+          name: state.pathParameters["name"]!,
+          email: state.uri.queryParameters["email"],
+          age: state.uri.queryParameters["age"],
+          place: state.uri.queryParameters["place"],
+        );
+      },
+    ),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,8 +50,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LandingScreen(),
+    // return const MaterialApp(
+    //   home: LandingScreen(),
+    // );
+    return MaterialApp.router(
+      routerConfig: _router,
     );
   }
 }
