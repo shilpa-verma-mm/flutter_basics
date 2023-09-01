@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multiplepage/widgets/gradient_container.dart';
+import 'package:flutter_basics/widgets/gradient_container.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});

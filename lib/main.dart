@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multiplepage/pages/home_screen.dart';
-import 'package:multiplepage/pages/landing_screen.dart';
+import 'package:flutter_basics/pages/home_screen.dart';
+import 'package:flutter_basics/pages/landing_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multiplepage/pages/login_screen.dart';
+import 'package:flutter_basics/pages/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
