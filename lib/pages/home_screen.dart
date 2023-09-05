@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_basics/models/cartmodel.dart';
+import 'package:flutter_basics/widgets/home/home_listview.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_basics/services/appinfo_service.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? name;
@@ -84,7 +87,7 @@ class _HomeScreen extends State<HomeScreen> {
         automaticallyImplyLeading: true,
         leading: IconButton(
           onPressed: () {
-            viewAppInfo(context);
+            context.go("/catalog");
           },
           icon: const Icon(
             Icons.trolley,
@@ -95,6 +98,15 @@ class _HomeScreen extends State<HomeScreen> {
           "Home Screen",
         ),
         actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              viewAppInfo(context);
+            },
+            icon: const Icon(
+              Icons.info,
+              color: Colors.white,
+            ),
+          ),
           IconButton(
             icon: const Icon(
               Icons.logout,
@@ -107,53 +119,64 @@ class _HomeScreen extends State<HomeScreen> {
         ],
         backgroundColor: const Color.fromARGB(255, 37, 205, 46),
       ),
-      body: Card(
-        margin: const EdgeInsets.symmetric(
-          vertical: 15,
-          horizontal: 12,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(
-            16,
+      body: Column(
+        children: [
+          Card(
+            margin: const EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 12,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(
+                16,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Hi, ${widget.name}',
+                    style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.bodyLarge,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Email id: ${widget.email}',
+                    style: GoogleFonts.lato(
+                      textStyle: Theme.of(context).textTheme.bodyLarge,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Location: ${widget.place}',
+                    style: GoogleFonts.lato(
+                      textStyle: Theme.of(context).textTheme.bodyLarge,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Hi, ${widget.name}',
-                style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context).textTheme.bodyLarge,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Email id: ${widget.email}',
-                style: GoogleFonts.lato(
-                  textStyle: Theme.of(context).textTheme.bodyLarge,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Location: ${widget.place}',
-                style: GoogleFonts.lato(
-                  textStyle: Theme.of(context).textTheme.bodyLarge,
-                  fontSize: 16,
-                ),
-              ),
-            ],
+          Expanded(
+            child: Consumer<CartModel>(
+              builder: (context, cart, child) {
+                return HomeListViewScreen(cart.totalPrice, cart.add);
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
